@@ -1,166 +1,212 @@
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-    .container {
-        width: 400px;
-        padding: 20px 15px;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .top {
-        display: flex;
-        align-items: center;
-        margin-bottom: 30px;
-        justify-content: space-between;
-    }
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+            left: 0;
+            right: 0;
+            padding-top: 10px;
+        }
+        .footer:before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 1px;
+            width: 30%;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
 
-    .top > h1 {
-        font-size: 25px;
-        color: black;
-        font-family: 'Montserrat', sans-serif;
-    }
+        .footer > p {
+            color: rgba(0, 0, 0, 0.3);
+            font-size: 10px;
+        }
 
-    .top > h1 span {
-        color: rgba(0, 0, 0, 0.68);
-        font-size: 13px;
-    }
+        .footer > p > a {
+            text-decoration: none;
+            display: inline-block;
+            color: rgba(0, 0, 0, 0.3);
+        }
+        .footer > p > a:hover {
+            text-decoration: underline;
+        }
 
-    .mid {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+        .container {
+            width: 400px;
+            height: 260px;
+            padding: 20px 15px;
+        }
 
-    .mid > form {
-        display: flex;
-        flex-direction: column;
-    }
+        .top {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            justify-content: space-between;
+        }
 
-    .btn {
-        display: inline-block;
-        border: none;
-        min-width: 100px;
-        text-align: center;
-        padding: 10px;
-        cursor: pointer;
-        text-decoration: none;
-        background-color: black;
-        color: white;
-        font-family: 'Montserrat', sans-serif;
-        border-radius: 7px;
-        height: 100%;
-        font-size: 14px;
-    }
+        .top > h1 {
+            font-size: 25px;
+            color: black;
+            font-family: 'Montserrat', sans-serif;
+        }
 
-    .mid > .clean-btn {
-        margin-top: 20px;
-    }
+        .top > h1 span {
+            color: rgba(0, 0, 0, 0.68);
+            font-size: 13px;
+        }
 
-    #sketch-image {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        position: absolute;
-    }
+        .mid {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-    .clean-btn {
-        width: 25px;
-        height: 25px;
-        cursor: pointer;
-        transform: translateY(2px);
-    }
+        .mid > form {
+            display: flex;
+            flex-direction: column;
+        }
 
-    .custom-label > div {
-        display: flex;
-        align-items: center;
-    }
+        .btn {
+            display: inline-block;
+            border: none;
+            min-width: 100px;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: black;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 7px;
+            height: 100%;
+            font-size: 14px;
+        }
 
-    .custom-label > div > label {
-        margin-right: 10px;
-    }
+        .mid > .clean-btn {
+            margin-top: 20px;
+        }
 
-    form button[type="submit"] {
-        width: 100%;
-    }
+        #sketch-image {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            position: absolute;
+        }
 
-    .custom-label {
-        margin-bottom: 30px;
-    }
+        .clean-btn {
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            transform: translateY(2px);
+        }
 
-    .image-msg {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        flex: 1 auto;
-    }
-</style>
+        .custom-label > div {
+            display: flex;
+            align-items: center;
+        }
 
-<style>
-    .slidecontainer {
-        width: 100%; /* Width of the outside container */
-        margin-bottom: 50px;
-        position: relative;
-    }
+        .custom-label > div > label {
+            margin-right: 10px;
+        }
 
-    .slidecontainer > p {
-        position: absolute;
-        display: inline-block;
-        pointer-events: none;
-        bottom: -20px;
-    }
-    .slidecontainer > label {
-        display: inline-block;
-        margin-bottom: 15px;
-        font-size: 16px;
-    }
+        form button[type="submit"] {
+            width: 100%;
+        }
 
-    /* The slider itself */
-    .slider {
-        -webkit-appearance: none; /* Override default CSS styles */
-        appearance: none;
-        width: 100%; /* Full-width */
-        height: 5px; /* Specified height */
-        background: #d3d3d3; /* Grey background */
-        outline: none; /* Remove outline */
-        opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-        -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-        transition: opacity .2s;
-    }
+        .custom-label {
+            margin-bottom: 30px;
+        }
 
-    /* Mouse-over effects */
-    .slider:hover {
-        opacity: 1; /* Fully shown on mouse-over */
-    }
+        .image-msg {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            flex: 1 auto;
+        }
+    </style>
 
-    /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-    .slider::-webkit-slider-thumb {
-        -webkit-appearance: none; /* Override default look */
-        appearance: none;
-        width: 15px; /* Set a specific slider handle width */
-        height: 15px; /* Slider handle height */
-        border-radius: 50%;
-        background: black; /* Green background */
-        cursor: pointer; /* Cursor on hover */
-    }
+    <style>
+        .hidden {
+            display: none;
+        }
 
-    .slider::-moz-range-thumb {
-        width: 15px; /* Set a specific slider handle width */
-        height: 15px; /* Slider handle height */
-        border-radius: 50%;
-        background: black; /* Green background */
-        cursor: pointer; /* Cursor on hover */
-    }
-</style>
-<html>
+        .slidecontainer {
+            width: 100%; /* Width of the outside container */
+            margin-bottom: 50px;
+            position: relative;
+        }
 
+        .slidecontainer > p {
+            position: absolute;
+            display: inline-block;
+            pointer-events: none;
+            bottom: -20px;
+        }
+
+        .slidecontainer > label {
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        /* The slider itself */
+        .slider {
+            -webkit-appearance: none; /* Override default CSS styles */
+            appearance: none;
+            width: 100%; /* Full-width */
+            height: 5px; /* Specified height */
+            background: #d3d3d3; /* Grey background */
+            outline: none; /* Remove outline */
+            opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+            -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+            transition: opacity .2s;
+        }
+
+        /* Mouse-over effects */
+        .slider:hover {
+            opacity: 1; /* Fully shown on mouse-over */
+        }
+
+        /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Override default look */
+            appearance: none;
+            width: 15px; /* Set a specific slider handle width */
+            height: 15px; /* Slider handle height */
+            border-radius: 50%;
+            background: black; /* Green background */
+            cursor: pointer; /* Cursor on hover */
+        }
+
+        .slider::-moz-range-thumb {
+            width: 15px; /* Set a specific slider handle width */
+            height: 15px; /* Slider handle height */
+            border-radius: 50%;
+            background: black; /* Green background */
+            cursor: pointer; /* Cursor on hover */
+        }
+    </style>
+</head>
 <div class="container">
     <div class="top">
-        <h1>Web Sketch Injector <span>v0.1</span></h1>
+        <h1>Web Sketch Injector <span>v0.1.1</span></h1>
         <img class="clean-btn" src="./img/reload.svg" alt="" title="Reset sketch"/>
     </div>
     <div class="mid">
@@ -174,7 +220,7 @@
                        id="sketch-image" name="sketch-image"
                        accept="image/png, image/jpeg">
             </div>
-            <div class="slidecontainer">
+            <div class="slidecontainer hidden">
                 <label for="opacity-range">Sketch opacity</label>
                 <input type="range" min="0" max="100" value="50" class="slider" id="opacity-range">
                 <p></p>
@@ -182,6 +228,7 @@
             <button class="btn" type="submit">Inject</button>
         </form>
     </div>
+    <div class="footer"><p>By <a target="_blank" href="https://github.com/aureliennezzar">Aurélien Nezzar</a></p></div>
 </div>
 <script src="script.js"></script>
 </html>
